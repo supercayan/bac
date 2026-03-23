@@ -83,18 +83,17 @@ const termLabel = document.getElementById("term-label");
 const questionCounter = document.getElementById("question-counter");
 const questionText = document.getElementById("question-text");
 const answerButtons = document.getElementById("answer-buttons");
-const resultPanel = document.getElementById("result-panel");
-const resultText = document.getElementById("result-text");
+const feedbackSheet = document.getElementById("feedback-sheet");
+const feedbackTitle = document.getElementById("feedback-title");
+const feedbackMessage = document.getElementById("feedback-message");
+const feedbackCorrectAnswer = document.getElementById("feedback-correct-answer");
 const nextButton = document.getElementById("next-button");
 const backButton = document.getElementById("back-button");
 const termButtons = document.querySelectorAll("[data-term]");
 const reviseButtons = document.querySelectorAll("[data-revise-term]");
 const reviseSections = document.getElementById("revise-sections");
 const reviseBackButton = document.getElementById("revise-back-button");
-const wrongModal = document.getElementById("wrong-modal");
-const modalText = document.getElementById("modal-text");
 const retryButton = document.getElementById("retry-button");
-const modalNextButton = document.getElementById("modal-next-button");
 
 let currentTerm = null;
 let currentQuestionIndex = 0;
@@ -119,7 +118,7 @@ function startQuiz(termKey) {
     ]).slice(0, 60);
   }
 
-  hideWrongModal();
+  hideFeedbackSheet();
   showScreen(quizScreen);
   renderQuestion();
 }
@@ -131,8 +130,7 @@ function renderQuestion() {
   termLabel.textContent = term.title;
   questionCounter.textContent = `Question ${currentQuestionIndex + 1} of ${term.questions.length}`;
   questionText.textContent = currentQuestion.question;
-  resultPanel.hidden = true;
-  resultText.textContent = "";
+  hideFeedbackSheet();
   answerButtons.innerHTML = "";
 
   currentQuestion.options.forEach((option, index) => {
@@ -162,20 +160,30 @@ function handleAnswer(selectedIndex) {
   buttons[currentQuestion.correctIndex].classList.add("correct");
 
   if (isCorrect) {
-    resultText.textContent = "Correct answer. Click next to continue.";
-    resultPanel.hidden = false;
+    showFeedbackSheet({
+      state: "correct",
+      title: "Correct",
+      message: "Nice job. Click next to continue.",
+      correctAnswer: "",
+      showRetry: false
+    });
     playSound("good");
     return;
   }
 
   buttons[selectedIndex].classList.add("wrong");
-  modalText.textContent = `Wrong answer. The correct date was ${currentQuestion.options[currentQuestion.correctIndex]}. Click next to continue or choose "See it again" to retry this question.`;
-  showWrongModal();
+  showFeedbackSheet({
+    state: "wrong",
+    title: "Wrong answer",
+    message: "You can continue, or choose to see this question again.",
+    correctAnswer: `Correct answer: ${currentQuestion.options[currentQuestion.correctIndex]}`,
+    showRetry: true
+  });
   playSound("bad");
 }
 
 function goToNextQuestion() {
-  hideWrongModal();
+  hideFeedbackSheet();
   currentQuestionIndex += 1;
 
   if (currentQuestionIndex >= questionSets[currentTerm].questions.length) {
@@ -187,15 +195,14 @@ function goToNextQuestion() {
 }
 
 function retryCurrentQuestion() {
-  hideWrongModal();
+  hideFeedbackSheet();
   renderQuestion();
 }
 
 function goToMenu() {
   currentTerm = null;
   currentQuestionIndex = 0;
-  hideWrongModal();
-  resultPanel.hidden = true;
+  hideFeedbackSheet();
   showScreen(menuScreen);
 }
 
@@ -292,17 +299,29 @@ function renderRevisionSections(termKey) {
 }
 
 function openRevisionScreen(termKey) {
-  hideWrongModal();
+  hideFeedbackSheet();
   renderRevisionSections(termKey);
   showScreen(reviseScreen);
 }
 
-function showWrongModal() {
-  wrongModal.hidden = false;
+function showFeedbackSheet({ state, title, message, correctAnswer, showRetry }) {
+  feedbackSheet.hidden = false;
+  feedbackSheet.classList.remove("correct-state", "wrong-state", "feedback-sheet-visible");
+  feedbackSheet.classList.add(`${state}-state`);
+  feedbackTitle.textContent = title;
+  feedbackMessage.textContent = message;
+  feedbackCorrectAnswer.textContent = correctAnswer;
+  feedbackCorrectAnswer.hidden = !correctAnswer;
+  retryButton.hidden = !showRetry;
+
+  window.requestAnimationFrame(() => {
+    feedbackSheet.classList.add("feedback-sheet-visible");
+  });
 }
 
-function hideWrongModal() {
-  wrongModal.hidden = true;
+function hideFeedbackSheet() {
+  feedbackSheet.classList.remove("feedback-sheet-visible", "correct-state", "wrong-state");
+  feedbackSheet.hidden = true;
 }
 
 function ensureAudioContext() {
@@ -360,7 +379,6 @@ reviseButtons.forEach((button) => {
 });
 
 nextButton.addEventListener("click", goToNextQuestion);
-modalNextButton.addEventListener("click", goToNextQuestion);
 retryButton.addEventListener("click", retryCurrentQuestion);
 backButton.addEventListener("click", goToMenu);
 reviseBackButton.addEventListener("click", goToMenu);
