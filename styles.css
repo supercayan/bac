@@ -1,0 +1,378 @@
+:root {
+  --bg-top: #fef3c7;
+  --bg-bottom: #fde68a;
+  --card: rgba(255, 250, 240, 0.9);
+  --text: #3b1f0f;
+  --muted: #7c4a21;
+  --correct: #166534;
+  --wrong: #b91c1c;
+  --shadow: 0 24px 50px rgba(120, 53, 15, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Fredoka", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.35), transparent 30%),
+    linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 24px 70px;
+}
+
+.screen {
+  width: min(100%, 920px);
+  display: none;
+}
+
+.screen-active {
+  display: block;
+}
+
+.hero-card,
+.quiz-card,
+.modal-card {
+  background: var(--card);
+  border: 4px solid rgba(255, 255, 255, 0.6);
+  border-radius: 32px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.hero-card {
+  padding: 48px 28px;
+  text-align: center;
+}
+
+.quiz-card {
+  padding: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+}
+
+h1,
+h2,
+h3,
+.question-text {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 12px;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+}
+
+.subtitle {
+  margin: 0 auto 28px;
+  max-width: 640px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.term-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.term-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.term-button,
+.all-terms-button,
+.revise-button,
+.answer-button,
+.ghost-button,
+.action-button {
+  font: inherit;
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.term-button:hover,
+.all-terms-button:hover,
+.revise-button:hover,
+.answer-button:hover,
+.ghost-button:hover,
+.action-button:hover {
+  transform: translateY(-2px);
+}
+
+.term-button,
+.all-terms-button {
+  padding: 24px 18px;
+  border-radius: 24px;
+  color: #fff;
+  min-height: 140px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
+}
+
+.revise-button {
+  align-self: center;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #fff7ed;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 10px 18px rgba(120, 53, 15, 0.08);
+}
+
+.term-button span,
+.all-terms-button span {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.95;
+}
+
+.term-one {
+  background: linear-gradient(160deg, #f97316, #ea580c);
+}
+
+.term-two {
+  background: linear-gradient(160deg, #0ea5e9, #0369a1);
+}
+
+.term-three {
+  background: linear-gradient(160deg, #10b981, #047857);
+}
+
+.all-terms-button {
+  width: min(100%, 420px);
+  background: linear-gradient(160deg, #7c3aed, #4338ca);
+}
+
+.quiz-topbar {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ghost-button,
+.action-button {
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.ghost-button {
+  background: #fff7ed;
+  color: var(--text);
+}
+
+.action-button {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.question-text {
+  margin: 26px 0 22px;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  line-height: 1.3;
+}
+
+.answers {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.answer-button {
+  width: 100%;
+  text-align: left;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: #fff;
+  color: var(--text);
+  border: 2px solid transparent;
+  box-shadow: 0 10px 18px rgba(120, 53, 15, 0.08);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.answer-button:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.answer-button.correct {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: var(--correct);
+}
+
+.answer-button.wrong {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: var(--wrong);
+}
+
+.result-panel {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: #fff7ed;
+}
+
+.result-panel p {
+  margin: 0;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(59, 31, 15, 0.45);
+}
+
+.modal-card {
+  width: min(100%, 520px);
+  padding: 28px;
+}
+
+.modal-card p {
+  line-height: 1.5;
+}
+
+.revise-card {
+  max-height: min(88vh, 980px);
+  overflow: auto;
+}
+
+.revise-sections {
+  display: grid;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.revise-section {
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.revise-section h3 {
+  margin-bottom: 12px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 18px;
+}
+
+.revision-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  min-width: 520px;
+}
+
+.revision-table th,
+.revision-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(124, 74, 33, 0.12);
+  text-align: left;
+}
+
+.revision-table th {
+  background: #fff7ed;
+}
+
+.quick-box {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: #fff7ed;
+}
+
+.quick-box h4 {
+  margin: 0 0 10px;
+}
+
+.quick-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quick-date {
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.92rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.credit {
+  position: fixed;
+  right: 18px;
+  bottom: 12px;
+  font-size: 0.85rem;
+  color: rgba(59, 31, 15, 0.8);
+}
+
+@media (max-width: 720px) {
+  .term-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-topbar,
+  .result-panel {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-card,
+  .quiz-card,
+  .modal-card {
+    padding: 22px;
+  }
+
+  .credit {
+    right: 12px;
+    bottom: 8px;
+    font-size: 0.78rem;
+  }
+}

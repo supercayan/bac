@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAC 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section id="menu-screen" class="screen screen-active">
+      <div class="hero-card">
+        <p class="eyebrow">BAC 2026</p>
+        <h1>History Date Challenge</h1>
+        <p class="subtitle">Revise your history dates term by term, or mix everything together in one big challenge.</p>
+
+        <div class="term-grid">
+          <div class="term-card">
+            <button class="term-button term-one" data-term="term1">
+              First Term
+              <span>50 questions</span>
+            </button>
+            <button class="revise-button" data-revise-term="term1" type="button">Revise</button>
+          </div>
+          <div class="term-card">
+            <button class="term-button term-two" data-term="term2">
+              Second Term
+              <span>30 questions</span>
+            </button>
+            <button class="revise-button" data-revise-term="term2" type="button">Revise</button>
+          </div>
+          <div class="term-card">
+            <button class="term-button term-three" data-term="term3">
+              Third Term
+              <span>20 questions</span>
+            </button>
+            <button class="revise-button" data-revise-term="term3" type="button">Revise</button>
+          </div>
+        </div>
+
+        <button class="all-terms-button" data-term="allTerms" type="button">
+          All Terms
+          <span>60 mixed questions</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="quiz-screen" class="screen" aria-live="polite">
+      <div class="quiz-card">
+        <div class="quiz-topbar">
+          <div>
+            <p id="term-label" class="eyebrow">First Term</p>
+            <h2 id="question-counter">Question 1 of 5</h2>
+          </div>
+          <button id="back-button" class="ghost-button" type="button">Main Menu</button>
+        </div>
+
+        <p id="question-text" class="question-text">Question goes here</p>
+
+        <div id="answer-buttons" class="answers" role="group" aria-label="Answer choices"></div>
+
+        <div id="result-panel" class="result-panel" hidden>
+          <p id="result-text"></p>
+          <button id="next-button" class="action-button" type="button">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="revise-screen" class="screen">
+      <div class="quiz-card revise-card">
+        <div class="quiz-topbar">
+          <div>
+            <p class="eyebrow">BAC 2026</p>
+            <h2>Revision Tables</h2>
+          </div>
+          <button id="revise-back-button" class="ghost-button" type="button">Main Menu</button>
+        </div>
+
+        <div id="revise-sections" class="revise-sections"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="credit">Made by Mohamed Berrahmoune</footer>
+
+  <div id="wrong-modal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h3 id="modal-title">Wrong Answer</h3>
+      <p id="modal-text">The correct answer will appear here.</p>
+      <div class="modal-actions">
+        <button id="retry-button" class="ghost-button" type="button">See it again</button>
+        <button id="modal-next-button" class="action-button" type="button">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
