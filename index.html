@@ -61,11 +61,6 @@
         <p id="question-text" class="question-text">Question goes here</p>
 
         <div id="answer-buttons" class="answers" role="group" aria-label="Answer choices"></div>
-
-        <div id="result-panel" class="result-panel" hidden>
-          <p id="result-text"></p>
-          <button id="next-button" class="action-button" type="button">Next</button>
-        </div>
       </div>
     </section>
 
@@ -86,14 +81,15 @@
 
   <footer class="credit">Made by Mohamed Berrahmoune</footer>
 
-  <div id="wrong-modal" class="modal" hidden>
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <h3 id="modal-title">Wrong Answer</h3>
-      <p id="modal-text">The correct answer will appear here.</p>
-      <div class="modal-actions">
-        <button id="retry-button" class="ghost-button" type="button">See it again</button>
-        <button id="modal-next-button" class="action-button" type="button">Next</button>
-      </div>
+  <div id="feedback-sheet" class="feedback-sheet" hidden>
+    <div class="feedback-main">
+      <p id="feedback-title" class="feedback-title">Correct</p>
+      <p id="feedback-message" class="feedback-message"></p>
+      <p id="feedback-correct-answer" class="feedback-correct-answer"></p>
+    </div>
+    <div class="feedback-actions">
+      <button id="retry-button" class="secondary-text-button" type="button" hidden>See this question again</button>
+      <button id="next-button" class="action-button" type="button">Next</button>
     </div>
   </div>
 
