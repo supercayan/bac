@@ -21,21 +21,21 @@
           <div class="term-card">
             <button class="term-button term-one" data-term="term1">
               First Term
-              <span>50 questions</span>
+              <span>33 + 18</span>
             </button>
             <button class="revise-button" data-revise-term="term1" type="button">Revise</button>
           </div>
           <div class="term-card">
             <button class="term-button term-two" data-term="term2">
               Second Term
-              <span>30 questions</span>
+              <span>32 + 7</span>
             </button>
             <button class="revise-button" data-revise-term="term2" type="button">Revise</button>
           </div>
           <div class="term-card">
             <button class="term-button term-three" data-term="term3">
               Third Term
-              <span>20 questions</span>
+              <span>10 + 12</span>
             </button>
             <button class="revise-button" data-revise-term="term3" type="button">Revise</button>
           </div>
@@ -43,7 +43,7 @@
 
         <button class="all-terms-button" data-term="allTerms" type="button">
           All Terms
-          <span>60 mixed questions</span>
+          <span>50 mixed questions</span>
         </button>
       </div>
     </section>
@@ -61,6 +61,39 @@
         <p id="question-text" class="question-text">Question goes here</p>
 
         <div id="answer-buttons" class="answers" role="group" aria-label="Answer choices"></div>
+
+        <div class="quiz-actions">
+          <button id="skip-button" class="skip-button" type="button">Skip</button>
+        </div>
+
+        <div id="section-prompt" class="section-prompt" hidden>
+          <h3 id="section-prompt-title">Section Finished</h3>
+          <p id="section-prompt-text">Do you want to continue?</p>
+          <div class="score-summary">
+            <button id="score-circle" class="score-circle" type="button">0%</button>
+            <div class="score-copy">
+              <p id="score-hint" class="score-hint">Click the circle to show missed dates and events.</p>
+              <p id="score-extra" class="score-extra"></p>
+            </div>
+          </div>
+          <div id="missed-list" class="missed-list" hidden>
+            <div class="table-wrap">
+              <table class="revision-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>What It Corresponds To</th>
+                  </tr>
+                </thead>
+                <tbody id="missed-list-body"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="section-prompt-actions">
+            <button id="section-continue-button" class="action-button" type="button">Continue</button>
+            <button id="section-menu-button" class="ghost-button" type="button">Main Menu</button>
+          </div>
+        </div>
       </div>
     </section>
 
